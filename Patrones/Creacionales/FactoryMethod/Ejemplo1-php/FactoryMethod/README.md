@@ -2,13 +2,13 @@
 
 ## Índice
 
-1. [¿Qué es el patrón de diseño Factory Method?](#qué-es-el-patrón-de-diseño-factory-method)
-2. [¿Cómo funciona el patrón de diseño Factory Method?](#cómo-funciona-el-patrón-de-diseño-factory-method)
-3. [¿Cuándo usar el patrón de diseño Factory Method?](#cuándo-usar-el-patrón-de-diseño-factory-method)
-4. [Ejemplo](#ejemplo)
-5. [Diagrama UML](#diagrama-uml)
-6. [Configuración](#configuración)
-7. [¿Cómo ejecutarlo?](#cómo-ejecutarlo)
+1. [¿Qué es el patrón de diseño Factory Method?](#1-qué-es-el-patrón-de-diseño-factory-method)
+2. [¿Cómo funciona el patrón de diseño Factory Method?](#2-cómo-funciona-el-patrón-de-diseño-factory-method)
+3. [¿Cuándo usar el patrón de diseño Factory Method?](#3-cuándo-usar-el-patrón-de-diseño-factory-method)
+4. [Ejemplo](#4-ejemplo)
+5. [Diagrama UML](#5-diagrama-uml)
+6. [Configuración](#6-configuración)
+7. [¿Cómo ejecutarlo?](#7-cómo-ejecutarlo)
 
 ---
 
@@ -57,7 +57,7 @@ Verificar la creación correcta de la carpeta **vendor** en el directorio : Patr
 **¿Qué hace esto?** Composer lee tu JSON, busca la carpeta `src/` y genera los archivos internos necesarios dentro de `vendor/` para que la magia de la autocarga funcione.
 
 ## 7.¿Cómo ejecutarlo? 
-Estando en la carpeta Patrones
+
 ```bash
 php Patrones/Creacionales/FactoryMethod/Ejemplo1-php/FactoryMethod/src/index.php
 
