@@ -27,7 +27,8 @@ El objetivo es comprender los patrones de diseño mediante ejemplos prácticos y
     - 1.2. [Abstract Factory]
         - 1.2.1 [Ejemplo 1 PHP](https://github.com/PerezContrerasLuis/PatronesDeDisenio/tree/main/Patrones/Creacionales/AbstractFactory/Ejemplo-php-1/AbstractFactory)
         - 1.2.2 [Ejemplo 2 ..]
-    - 1.3. [Singleton](https://github.com/PerezContrerasLuis/PatronesDeDisenio/tree/main/Patrones/Creacionales/Singleton)
+    - 1.3. [Singleton]
+        - 1.3.1 [Ejemplo 1 PHP](https://github.com/PerezContrerasLuis/PatronesDeDisenio/tree/main/Patrones/Creacionales/Singleton/Ejemplo1-php/Singleton)
     - 1.4. [Builder](https://github.com/PerezContrerasLuis/PatronesDeDisenio/tree/main/Patrones/Creacionales/Builder)
     - 1.5. [Prototype]
 
