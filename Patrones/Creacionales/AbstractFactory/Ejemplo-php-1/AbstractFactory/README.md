@@ -19,12 +19,6 @@
    4. [Crear la fábrica abstracta](#4-crear-la-fábrica-abstracta)
    5. [Crear las fábricas concretas](#5-crear-las-fábricas-concretas)
    6. [Crear la clase cliente Page](#6-crear-la-clase-cliente-page)
-   7. [Crear el Autoloading](#7-crear-el-autoloading)
-      1. [Crear composer.json](#71-crear-composerjson)
-      2. [Ejecutar composer dump-autoload](#72-ejecutar-composer-dump-autoload)
-      3. [Creación de la carpeta vendor](#73-creación-de-la-carpeta-vendor)
-      4. [Reemplazar los require_once](#74-reemplazar-los-require_once)
-   8. [Probar la implementación](#8-probar-la-implementación)
 10. [Estructura del proyecto](#estructura-del-proyecto)
 11. [Ejemplo de ejecución con la familia PhpTemplateFactory](#ejemplo-de-ejecución-con-la-familia-phptemplatefactory)
    1. [Instanciación de Page](#1-instanciación-de-page)
@@ -272,75 +266,12 @@ La clase `Page` actúa como cliente y utiliza una fábrica para generar los comp
 $page = new Page('Título', 'Contenido');
 ```
 
-### 7. Crear el Autoloading
-
-Composer + autoloading PSR-4
-El autoloading PSR-4 permite que PHP cargue automáticamente las clases cuando se necesitan, sin tener que escribir manualmente múltiples `require_once` en el `index.php` como se muestra a continuación.
-
-```php
-/* 
-Interfaces base (siempre primero)
-require_once __DIR__ . '/Factory/TemplateFactory.php';
-require_once __DIR__ . '/Template/TitleTemplate.php';
-require_once __DIR__ . '/Template/PageTemplate.php';
-require_once __DIR__ . '/Render/TemplateRender.php'; // ← corregido
-require_once __DIR__ . '/Factory/TwigTemplateFactory.php';
-
-Clases abstractas
-require_once __DIR__ . '/Template/BasePageTemplate.php';
-
-Implementaciones concretas
-require_once __DIR__ . '/Template/TwingTitleTemplate.php';
-require_once __DIR__ . '/Template/PHPTitleTemplate.php';
-require_once __DIR__ . '/Template/TwingPageTemplate.php';
-require_once __DIR__ . '/Template/PHPPageTemplate.php';
-require_once __DIR__ . '/Render/TwingRender.php'; // ← corregido
-require_once __DIR__ . '/Render/PHPTemplateRenderer.php'; // ← corregido
-
-Fábricas concretas
-require_once __DIR__ . '/Factory/TwigTemplateFactory.php';
-require_once __DIR__ . '/Factory/PHPTemplateFactory.php';
-
-Clases cliente y helpers
-require_once __DIR__ . '/Client/Page.php';
-require_once __DIR__ . '/Engine/Twing.php';
-require_once __DIR__ . '/vendor/autoload.php';
-*/
-
-require_once __DIR__ . '/composer/autoload_real.php';
-```
-
-Esto mejora significativamente la organización, mantenimiento y escalabilidad del proyecto.
-
-#### 7.1. Crear composer.json
-
-#### 7.2. Ejecutar composer dump-autoload
-
-#### 7.3. Composer crea carpeta vendor
-
-#### 7.4. Se reemplazan todos los require_once por:
-
-```php
-require_once __DIR__ . '/vendor/autoload.php';
-```
-
-### 8. Probar la implementación
-
-En el archivo `index.php`, probamos la integración completa:
-
-```php
-$page = new Page('Sample page', 'This is the body.');
-
-echo "Testing actual rendering with the PHPTemplate factory:\n";
-echo $page->render(new PHPTemplateFactory());
-```
-
 ---
 
 ## 📁 Estructura del proyecto
 
 ```bash
-/AbstractFactory
+/src
 │
 ├── Client/
 │   └── Page.php                       # Cliente que usa la fábrica
@@ -455,7 +386,7 @@ El string HTML con los valores reemplazados es retornado desde `PHPTemplateRende
 
 ---
 
-## 🔴 Resultado esperado
+##  Resultado esperado
 
 ```bash
 Testing actual rendering with the PHPTemplate factory:
