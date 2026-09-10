@@ -2,13 +2,13 @@
 
 ## Índice
 
-1. [¿Qué es el patrón de diseño Factory Method?](#1-que-es-el-patron-de-diseno-factory-method)
-2. [¿Cómo funciona el patrón de diseño Factory Method?](#2-como-funciona-el-patron-de-diseno-factory-method)
-3. [¿Cuándo usar el patrón de diseño Factory Method?](#3-cuando-usar-el-patron-de-diseno-factory-method)
-4. [Ejemplo](#4-ejemplo)
-5. [Diagrama UML](#5-diagrama-uml)
-6. [Configuración del sistema de carga automática](#6-configuracion-del-sistema-de-carga-automatica)
-7. [¿Cómo ejecutarlo?](#7-¿Cómo-ejecutarlo?)
+1. [¿Qué es el patrón de diseño Factory Method?](#qué-es-el-patrón-de-diseño-factory-method)
+2. [¿Cómo funciona el patrón de diseño Factory Method?](#cómo-funciona-el-patrón-de-diseño-factory-method)
+3. [¿Cuándo usar el patrón de diseño Factory Method?](#cuándo-usar-el-patrón-de-diseño-factory-method)
+4. [Ejemplo](#ejemplo)
+5. [Diagrama UML](#diagrama-uml)
+6. [Configuración](#configuración)
+7. [¿Cómo ejecutarlo?](#cómo-ejecutarlo)
 
 ---
 
@@ -35,9 +35,9 @@ En este ejemplo, el patrón Factory Method proporciona una interfaz para crear c
 
 ![Diagrama Abstract Factory](Diagram/FactoryMethod.png)
 
-## 6. Configuración del sistema de carga automática
+## 6. Configuración
 
-Generar el mapa de clases (autoload para psr-4):
+Configuración del sistema de carga automática, generar el mapa de clases (autoload para psr-4):
 
 Abre tu terminal, asegúrate de estar en **cd Patrones/Creacionales/FactoryMethod/Ejemplo1-php/FactoryMethod** (donde está el archivo `composer.json`) y ejecuta el siguiente comando:
 
@@ -45,7 +45,7 @@ Abre tu terminal, asegúrate de estar en **cd Patrones/Creacionales/FactoryMetho
 
 ```bash
 composer install
-```
+``` 
 
 **O si requieres actualizar:**
 
