@@ -20,14 +20,7 @@
    5. [Crear las fábricas concretas](#5-crear-las-fábricas-concretas)
    6. [Crear la clase cliente Page](#6-crear-la-clase-cliente-page)
 10. [Estructura del proyecto](#estructura-del-proyecto)
-11. [Ejemplo de ejecución con la familia PhpTemplateFactory](#ejemplo-de-ejecución-con-la-familia-phptemplatefactory)
-   1. [Instanciación de Page](#1-instanciación-de-page)
-   2. [Llamada al método render de Page](#2-llamada-al-método-render-de-page)
-   3. [Uso de la fábrica dentro de Page::render()](#3-uso-de-la-fábrica-dentro-de-pagerender)
-   4. [Renderizado del contenido final](#4-renderizado-del-contenido-final)
-   5. [Sustitución de valores en la plantilla](#5-sustitución-de-valores-en-la-plantilla)
-   6. [Retorno del contenido HTML final](#6-retorno-del-contenido-html-final)
-   7. [Diagrama de secuencia](#7-diagrama-de-secuencia)
+11. [Diagrama de secuencia](#Diagrama-de-secuencia)
 
 
 ---
@@ -306,79 +299,6 @@ $page = new Page('Título', 'Contenido');
 ```
 
 ---
-
-## 🔵 Ejemplo de ejecución con la familia PhpTemplateFactory
-
-Tomando como ejemplo la fábrica `PHPTemplateFactory`, el flujo de ejecución es el siguiente:
-
-### 1. Instanciación de Page
-
-En `index.php` se crea una instancia de la clase `Page`, pasándole como argumentos un título y un contenido:
-
-```php
-$page = new Page('Sample page', 'This is the body.');
-```
-
-Esto llama al constructor de la clase `Page`, almacenando internamente los valores:
-* `$this->title = 'Sample page'`
-* `$this->content = 'This is the body.'`
-
-### 2. Llamada al método render de Page
-
-Luego se llama al método `render()` del objeto `$page`, pasándole como argumento una instancia de la fábrica concreta `PHPTemplateFactory`:
-
-```php
-echo $page->render(new PHPTemplateFactory());
-```
-
-### 3. Uso de la fábrica dentro de Page::render()
-
-Dentro del método `render()` de la clase `Page`, se reciben los siguientes objetos a través de la fábrica:
-
-a) Creación del template de página
-
-```php
-$pageTemplate = $factory->createPageTemplate();
-```
-
-Esto ejecuta el método `createPageTemplate()` de `PHPTemplateFactory`, que:
-* Llama internamente a `createTitleTemplate()` para generar un objeto `PhpTitleTemplate`.
-* Con ese objeto, instancia `PhpPageTemplate`, que lo recibe en su constructor.
-* Retorna finalmente el objeto `PhpPageTemplate`.
-
-b) Obtención del renderer
-
-```php
-$renderer = $factory->getRenderer();
-```
-
-Este método retorna una instancia de `PHPTemplateRenderer`.
-
-### 4. Renderizado del contenido final
-
-Se llama al método `render()` del renderer, pasando como parámetros:
-* La plantilla HTML obtenida de `$pageTemplate->getTemplateString()`, que contiene placeholders como `{{title}}` y `{{content}}`.
-* Un arreglo asociativo con los valores reales:
-
-```php
-[
-  'title' => $this->title,       // 'Sample page'
-  'content' => $this->content    // 'This is the body.'
-]
-```
-
-### 5. Sustitución de valores en la plantilla
-
-Dentro del método `render()` de `PHPTemplateRenderer`, se recorren las claves del arreglo asociativo y se sustituyen en el string HTML. Por ejemplo:
-
-```php
-$templateString = str_replace('{{title}}', 'Sample page', $templateString);
-$templateString = str_replace('{{content}}', 'This is the body.', $templateString);
-```
-
-### 6. Retorno del contenido HTML final
-
-El string HTML con los valores reemplazados es retornado desde `PHPTemplateRenderer`, luego desde `Page::render()` y finalmente impreso con `echo` en `index.php`.
 
 ### 7. Diagrama de secuencia
 
