@@ -36,12 +36,8 @@ class Singleton
     */
     public static function getInstance() : Singleton
     {
-        /**
-         * Aquí se guarda el nombre de la clase que llama este método.
-         * Si llamas Logger::getInstance(), entonces $cls será "Logger".
-         * static::class es como decir “la clase actual desde donde estoy llamando”.
-         * 
-        */
+        
+        //static::class es como decir “la clase actual desde donde estoy llamando”. 
         $cls =static::class;
 
         if(!isset(self::$instances[$cls])) {
