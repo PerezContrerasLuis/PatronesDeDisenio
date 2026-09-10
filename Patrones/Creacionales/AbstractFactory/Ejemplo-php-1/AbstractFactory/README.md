@@ -2,17 +2,17 @@
 
 ## 📑 Índice
 
-1. [Abstract Factory Pattern](#1-abstract-factory-pattern)
-   1. [¿Para qué sirve?](#para-qué-sirve)
-   2. [Cuándo usarlo](#cuándo-usarlo)
-   3. [Objetivo](#objetivo)
-2. [¿Cómo implementar el patrón para resolver el problema?](#cómo-implementar-el-patrón-para-resolver-el-problema)
-   1. [Productos a fabricar](#productos-a-fabricar)
-   2. [Familia Twig](#familia-twig)
-   3. [Familia PHPTemplate](#familia-phptemplate)
-   4. [¿Dónde está la fábrica abstracta?](#dónde-está-la-fábrica-abstracta)
-   5. [Diagrama UML](#diagrama-uml)
-3. [Proceso de codificación](#proceso-de-codificación)
+1. [¿Qué es el patrón de diseño Abstract factory?](#1-qué-es-el-patrón-de-diseño-Abstract-Factory)
+2. [¿Cómo funciona el patrón de diseño Abstract Factory](#2-cómo-funciona-el-patrón-de-diseño-Abstract-Factory)
+3. [¿Cuándo usar el patrón de diseño Abstract Factory?](#3-cuándo-usar-el-patrón-de-diseño-Abstract-Factory)
+4. [Ejemplo](#4-ejemplo)
+5. [Diagrama UML](#5-diagrama-uml)
+6. [Configuración](#6-configuración)
+7. [¿Cómo ejecutarlo?](#7-cómo-ejecutarlo)
+
+
+8. [¿Cómo implementar el patrón para resolver el problema?](#cómo-implementar-el-patrón-para-resolver-el-problema)
+9. [Proceso de codificación](#proceso-de-codificación)
    1. [Identificar los productos a fabricar](#1-identificar-los-productos-a-fabricar)
    2. [Crear las clases concretas de productos](#2-crear-las-clases-concretas-de-productos)
    3. [Crear las clases de renderizado concretas](#3-crear-las-clases-de-renderizado-concretas)
@@ -25,8 +25,8 @@
       3. [Creación de la carpeta vendor](#73-creación-de-la-carpeta-vendor)
       4. [Reemplazar los require_once](#74-reemplazar-los-require_once)
    8. [Probar la implementación](#8-probar-la-implementación)
-4. [Estructura del proyecto](#estructura-del-proyecto)
-5. [Ejemplo de ejecución con la familia PhpTemplateFactory](#ejemplo-de-ejecución-con-la-familia-phptemplatefactory)
+10. [Estructura del proyecto](#estructura-del-proyecto)
+11. [Ejemplo de ejecución con la familia PhpTemplateFactory](#ejemplo-de-ejecución-con-la-familia-phptemplatefactory)
    1. [Instanciación de Page](#1-instanciación-de-page)
    2. [Llamada al método render de Page](#2-llamada-al-método-render-de-page)
    3. [Uso de la fábrica dentro de Page::render()](#3-uso-de-la-fábrica-dentro-de-pagerender)
@@ -34,26 +34,86 @@
    5. [Sustitución de valores en la plantilla](#5-sustitución-de-valores-en-la-plantilla)
    6. [Retorno del contenido HTML final](#6-retorno-del-contenido-html-final)
    7. [Diagrama de secuencia](#7-diagrama-de-secuencia)
-6. [Resultado esperado](#resultado-esperado)
+
 
 ---
 
-## 1. Abstract Factory Pattern
 
-### ¿Para qué sirve?
+## 1. ¿Qué es el patrón de diseño Abstract Factory?
 
-El patrón Abstract Factory se utiliza cuando una aplicación necesita crear familias de objetos relacionados sin depender de sus clases concretas.
-En otras palabras, permite cambiar fácilmente la "fábrica" de objetos (por ejemplo, de un motor de renderizado a otro) sin modificar el código que usa esos objetos.
+El Abstract Factory (o fábrica abstracta) es un patrón de diseño que funciona como una "fábrica de fábricas". Su objetivo principal es agrupar un conjunto de fábricas individuales que tienen algo en común sin que el código principal necesite saber los detalles específicos de cómo se construyen. En palabras simples, es una superestructura que te permite crear familias de objetos relacionados (como botones, ventanas y menús) garantizando que todos compartan el mismo estilo o configuración 
 
-### Cuándo usarlo
+## 2. ¿Cómo funciona el patrón de diseño Abstract Factory?
 
-Se usa cuando tu sistema debe funcionar con múltiples variantes de productos (como interfaces gráficas, motores de plantillas, o sistemas de base de datos) y necesitas mantener el código desacoplado de las implementaciones específicas.
+Este patrón funciona mediante interfaces o planos generales. Primero, se define una fábrica abstracta (el plano básico) que dice qué cosas se pueden fabricar, pero no cómo hacerlas. Luego, se crean las fábricas concretas (las verdaderas constructoras) que siguen ese plano para hacer los productos reales. Por ejemplo, si tienes una fábrica abstracta de muebles, tendrás una fábrica concreta de "muebles modernos" y otra de "muebles clásicos". El programa principal solo le pide cosas a la fábrica general, y esta se encarga de entregar automáticamente la versión correcta de los objetos según el estilo elegido.
 
-### 🎯 Objetivo
+## 3. ¿Cuándo usar el patrón de diseño Abstract Factory?
+
+Debes usar este patrón cuando tu programa necesite trabajar con múltiples familias de productos que deben usarse juntos y quieres asegurarte de que no se mezclen estilos diferentes. Un caso muy común es cuando creas una aplicación que debe verse nativa tanto en Windows como en Mac; la fábrica te asegura que si estás en Mac, todos los botones y menús sean estilo Mac y no se cuele uno de Windows. También es ideal cuando quieres que tu código sea fácil de ampliar en el futuro (por ejemplo, añadir soporte para Linux) sin tener que modificar o romper las partes del programa que ya funcionan.
+
+## 4. Ejemplo
 
 En este ejemplo, el objetivo es crear un sistema que permita generar plantillas dinámicamente usando distintos motores de renderizado —Twig y PHPTemplate— sin modificar el código principal. Cada motor produce sus propias versiones de los mismos productos: una plantilla de título, una plantilla de página y un renderizador. Para lograrlo, utilizamos una fábrica abstracta que define qué productos deben crearse, y fábricas concretas (Twig y PHP) que implementan esa lógica según el motor seleccionado.
 
 El resultado es un sistema más modular, extensible y fácil de mantener.
+
+## 5. Diagrama UML
+
+![Diagrama Abstract Factory](Diagramas/uml.png)
+
+## 6. Configuración
+
+Configuración del sistema de carga automática, generar el mapa de clases (autoload para psr-4):
+
+Abre tu terminal, asegúrate de estar en **cd Patrones/Creacionales/AbstractFactory/Ejemplo-php-1/AbstractFactory** (donde está el archivo `composer.json`) y ejecuta el siguiente comando:
+
+**Si es la primera vez:**
+
+```bash
+composer install
+``` 
+
+**O si requieres actualizar:**
+
+```bash
+composer dump-autoload
+```
+Verificar la creación correcta de la carpeta **vendor** en el directorio : Patrones/Creacionales/FactoryMethod/Ejemplo1-php/FactoryMethod. 
+
+**¿Qué hace esto?** Composer lee tu JSON, busca la carpeta `src/` y genera los archivos internos necesarios dentro de `vendor/` para que la magia de la autocarga funcione.
+
+## 7.¿Cómo ejecutarlo? 
+
+```bash
+php Patrones/Creacionales/AbstractFactory/Ejemplo-php-1/AbstractFactory/src/index.php
+```
+
+Resultado:
+
+```
+Testing actual rendering with the PHPTemplate factory:
+<div class="page">
+    <h1> Sample page </h1>
+    <article class="content">This is the body.</article>
+</div>
+
+Testing actual rendering with the TwigTemplate factory:
+<div class="page">
+    <h1> Sample page </h1>
+    <article class="content">This is the body.</article>
+</div>
+```
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
@@ -128,16 +188,11 @@ Además, los métodos retornan interfaces, no clases concretas:
 
 Esto es importante porque permite que el código cliente trabaje con abstracciones y no dependa directamente de `TwigTitleTemplate`, `PhpTitleTemplate`, etc.
 
-### diagrama uml 
 
-![Diagrama Abstract Factory](Diagramas/uml.png).
 
-A continuación, se muestra el diagrama UML correspondiente a la implementación del patrón Abstract Factory aplicado al problema planteado.
-
-![Diagrama Abstract Factory](Diagramas/umlreal.png).
 ---
 
-## 🟢 Proceso de codificación
+##  Proceso de codificación
 
 ### 1. Identificar los productos a fabricar
 
@@ -410,24 +465,5 @@ Testing actual rendering with the PHPTemplate factory:
 </div>
 ```
 
-Forma de ejecutar:
 
-```bash
-php Patrones/Creacionales/AbstractFactory/Ejemplo-php-1/AbstractFactory/src/index.php
-```
 
-Resultado:
-
-```
-Testing actual rendering with the PHPTemplate factory:
-<div class="page">
-    <h1> Sample page </h1>
-    <article class="content">This is the body.</article>
-</div>
-
-Testing actual rendering with the TwigTemplate factory:
-<div class="page">
-    <h1> Sample page </h1>
-    <article class="content">This is the body.</article>
-</div>
-```
