@@ -1,6 +1,6 @@
-# 🏭 Abstract Factory Pattern
+# Abstract Factory Pattern
 
-## 📑 Índice
+## Índice
 
 1. [¿Qué es el patrón de diseño Abstract factory?](#1-qué-es-el-patrón-de-diseño-Abstract-Factory)
 2. [¿Cómo funciona el patrón de diseño Abstract Factory](#2-cómo-funciona-el-patrón-de-diseño-Abstract-Factory)
