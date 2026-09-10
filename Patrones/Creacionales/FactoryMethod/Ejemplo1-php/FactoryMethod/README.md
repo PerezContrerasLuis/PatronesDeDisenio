@@ -37,9 +37,9 @@ En este ejemplo, el patrón Factory Method proporciona una interfaz para crear c
 
 ## 6. Configuración del sistema de carga automática
 
-Generar el mapa de clases (En la terminal):
+Generar el mapa de clases (autoload para psr-4):
 
-Abre tu terminal, asegúrate de estar en la raíz de tu proyecto (donde está el archivo `composer.json`) y ejecuta el siguiente comando:
+Abre tu terminal, asegúrate de estar en **cd Patrones/Creacionales/FactoryMethod/Ejemplo1-php/FactoryMethod** (donde está el archivo `composer.json`) y ejecuta el siguiente comando:
 
 **Si es la primera vez:**
 
@@ -52,6 +52,7 @@ composer install
 ```bash
 composer dump-autoload
 ```
+Verificar la creación correcta de la carpeta **vendor** en el directorio : Patrones/Creacionales/FactoryMethod/Ejemplo1-php/FactoryMethod. 
 
 **¿Qué hace esto?** Composer lee tu JSON, busca la carpeta `src/` y genera los archivos internos necesarios dentro de `vendor/` para que la magia de la autocarga funcione.
 
